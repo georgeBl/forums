@@ -3,6 +3,36 @@ h1 {
 }
 
 body {
-  text-align: center;
+  /* text-align: center; */
   margin: auto;
+}
+
+
+
+.custom-link:link {
+  text-decoration: none;
+  color:black
+}
+
+.custom-link:visited {
+  text-decoration: none;
+  color:black;
+}
+
+.custom-link:hover {
+  text-decoration: none;
+  background: grey;
+}
+
+.custom-link:active {
+  text-decoration: none;
+}
+
+.subforum-image {
+  height:300px;
+}
+
+
+.card-title-text {
+  text-align: left;
 }
