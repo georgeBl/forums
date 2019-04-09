@@ -48,28 +48,29 @@ app.get('/', (req, res) => {
 
 
 // URL to our DB - will be loaded from an env variable or will use local DB
-const dbroute = process.env.MONGODB_URL || `mongodb://localhost:27017/${dbname}`;
+const dbroute = process.env.MONGODB_URL;
 
 let db;
 
 // connect to the db and start the express app
-MongoClient.connect(dbroute, {useNewUrlParser: true}, (err, client) => {
-  if (err) throw err;
-
-  db = client.db(dbname);
-  // start the express web app listening
-  app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
-});
+// MongoClient.connect(dbroute, {useNewUrlParser: true}, (err, client) => {
+//   if (err) throw err;
+//
+//   db = client.db(dbname);
+//   // start the express web app listening
+//
+// });
 
 
 mongoose.connect(dbroute, { useNewUrlParser: true }, function(err) {
   if (err) {
     throw err;
   } else {
-    console.log(`Successfully connected to ${dbroute}`);
+    console.log('Successfully connected');
   }
 });
-
+// solves deprecation error
+mongoose.set('useCreateIndex', true);
 // define the various endpoints
 
 
@@ -502,6 +503,7 @@ app.get('/api/checkVote/:threadId', withAuth, (req, res) => {
 
 });
 
+app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
 // // get all comments not used
 // app.get('/api/comment', (req, res) => {
 //   db.collection('comments').find().toArray((err, comments) => {
