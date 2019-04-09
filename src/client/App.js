@@ -32,23 +32,14 @@ export default class App extends Component {
   }
 
   logout(props) {
-
-
     localStorage.setItem('loggedIn', 'false');
     axios.get('/api/logout')
       .then(res => {
         this.setState({loggedIn:false});
         props.history.push('/');
       })
-      .catch( error => {
-        // if(error.response) {
-        //   console.log(error.response.status);
-        // } else if(error.request) {
-        //   console.log(error.request);
-        // } else {
-        //   console.log('Error', error.message);
+      .catch( error => { 
         console.clear();
-        // }
         return null;
       });
     return null;

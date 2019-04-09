@@ -75,7 +75,8 @@ class ForumThread extends Component {
                     title: this.props.title,
                     subtitle: this.props.subtitle,
                     body: this.props.body,
-                    image: this.props.image
+                    image: this.props.image,
+                    createdByUser:this.props.createdByUser
                   }
                 }}>
                 View thread

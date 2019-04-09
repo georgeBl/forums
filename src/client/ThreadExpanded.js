@@ -51,6 +51,7 @@ export default class ThreadExpanded extends Component {
   componentDidMount() {
     const commentsList = this.getComments();
     if(this.getLoginStatus()) {
+      this.setState({loggedIn: true});
       axios.get(`/api/checkVote/${this.props.match.params.id}`)
         .then(res=>{
           if(res.data.voted === true) {
@@ -138,9 +139,9 @@ export default class ThreadExpanded extends Component {
               {<PostComment submitComment={this.submitComment} />}
             </div>
             <div className='col-6'>
-
-              <button className='btn btn-danger float-right'name='downvote' id='downvote' disabled={this.state.disableDownvote} value={-1} onClick={this.handleVote}>Downvote</button>
-              <button className='btn btn-success float-right' name='upvote' id='upvote' disabled={this.state.disableUpvote} style={{marginRight:'10px'}} value={1} onClick={this.handleVote}>Upvote</button>
+              {this.state.rate && <p className='text-right'>Rating: {this.state.rate}</p>}
+              {this.state.loggedIn  && <button className='btn btn-danger float-right'name='downvote' id='downvote' disabled={this.state.disableDownvote} value={-1} onClick={this.handleVote}>Downvote</button> }
+              {this.state.loggedIn  && <button className='btn btn-success float-right' name='upvote' id='upvote' disabled={this.state.disableUpvote} style={{marginRight:'10px'}} value={1} onClick={this.handleVote}>Upvote</button>}
             </div>
           </div>
           {this.state.commentsList}

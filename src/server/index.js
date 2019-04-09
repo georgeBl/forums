@@ -251,6 +251,7 @@ app.get('/api/threads/:name', (req, res) =>{
     Subforum.findOne({name:req.params.name}, (err, subforum) => {
       if (err) throw err;
       Thread.find({subforum_id: new ObjectID(subforum._id)}, (err, threads) => {
+        if (err) throw err;
         res.status(200).send(threads);
       });
     });
@@ -263,11 +264,11 @@ app.get('/api/thread/:id', (req, res) =>{
   // console.log('get thread by id!');
   Thread.findOne({_id: new ObjectID(req.params.id)}, (err, thread) =>{
     if (err) throw err;
-    delete thread.rate;
-    delete thread.subforum_id;
-    delete thread.rated_by;
-    delete thread.created_on;
-    res.send(thread);
+    // delete thread.rate;
+    // delete thread.subforum_id;
+    // delete thread.rated_by;
+    // delete thread.created_on;
+    res.status(200).send(thread);
   });
 
 });
