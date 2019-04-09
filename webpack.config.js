@@ -44,5 +44,10 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/favicon.ico'
     })
-  ]
+  ],
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  }
 };
