@@ -42,9 +42,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
 // URL to our DB - will be loaded from an env variable or will use local DB
 const dbroute = process.env.MONGODB_URL || 'mongodb://admin:admin@react-ca2-shard-00-00-p2gkq.mongodb.net:27017,react-ca2-shard-00-01-p2gkq.mongodb.net:27017,react-ca2-shard-00-02-p2gkq.mongodb.net:27017/react-ca2?ssl=true&replicaSet=react-ca2-shard-0&authSource=admin&retryWrites=true';
 
