@@ -1,11 +1,9 @@
-# simple-react-full-stack
+# Forums - A simple MERN application
 
-[![Build Status](https://travis-ci.org/crsandeep/simple-react-full-stack.svg?branch=master)](https://travis-ci.org/crsandeep/simple-react-full-stack)
-[![Greenkeeper badge](https://badges.greenkeeper.io/crsandeep/simple-react-full-stack.svg)](https://greenkeeper.io/)
 
-This is a boilerplate to build a full stack web application using React, Node.js, Express and Webpack. It is also configured with webpack-dev-server, eslint, prettier and babel.
+A live demo of the application can be accessed at [Click Link](https://react-forum-app.herokuapp.com)
 
-- [simple-react-full-stack](#simple-react-full-stack)
+- [Forums](#forums)
   - [Introduction](#introduction)
     - [Development mode](#development-mode)
     - [Production mode](#production-mode)
@@ -24,9 +22,8 @@ This is a boilerplate to build a full stack web application using React, Node.js
 
 ## Introduction
 
-[Create React App](https://github.com/facebook/create-react-app) is a quick way to get started with React development and it requires no build configuration. But it completely hides the build config which makes it difficult to extend. It also requires some additional work to integrate it with an existing Node.js/Express backend application.
+This application is build using a MERN stack as a Continuous Assessment for the Advanced JavaScript Module. The project theme is a forum, the users being able to read different threads in the two subforums available, with extra functionality added when the user is logged in (create, update, delete).
 
-This is a simple full stack [React](https://reactjs.org/) application with a [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) backend. Client side code is written in React and the backend API is written using Express. This application is configured with [Airbnb's ESLint rules](https://github.com/airbnb/javascript) and formatted through [prettier](https://prettier.io/).
 
 ### Development mode
 
@@ -35,15 +32,16 @@ In the development mode, we will have 2 servers running. The front end code will
 ### Production mode
 
 In the production mode, we will have only 1 server running. All the client side code will be bundled into static files using webpack and it will be served by the Node.js/Express application.
+The project is hosted using heroku!
 
 ## Quick Start
 
 ```bash
 # Clone the repository
-git clone https://github.com/crsandeep/simple-react-full-stack
+git clone https://github.com/georgeBl/forums
 
 # Go inside the directory
-cd simple-react-full-stack
+cd forums
 
 # Install dependencies
 yarn (or npm install)
@@ -59,6 +57,8 @@ yarn start (or npm start)
 ```
 
 ## Documentation
+
+All the functionality provided in this app is explained in the Report document.
 
 ### Folder Structure
 
@@ -108,17 +108,18 @@ Babel requires plugins to do the transformation. Presets are the set of plugins 
 [webpack.config.js](https://webpack.js.org/configuration/) file is used to describe the configurations required for webpack. Below is the webpack.config.js file which I am using.
 
 ```javascript
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const outputDirectory = "dist";
+const outputDirectory = 'dist';
 
 module.exports = {
-  entry: ["babel-polyfill", "./src/client/index.js"],
+  entry: ['babel-polyfill', './src/client/index.js'],
   output: {
     path: path.join(__dirname, outputDirectory),
-    filename: "bundle.js"
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -126,34 +127,41 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: "url-loader?limit=100000"
+        loader: 'url-loader?limit=100000'
       }
     ]
   },
   devServer: {
     port: 3000,
     open: true,
+    historyApiFallback: true,
     proxy: {
-      "/api": "http://localhost:8080"
+      '/api': 'http://localhost:8080'
     }
   },
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
-      favicon: "./public/favicon.ico"
+      template: './public/index.html',
+      favicon: './public/favicon.ico'
     })
-  ]
+  ],
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  }
 };
+
 ```
 
 1.  **entry:** entry: ./src/client/index.js is where the application starts executing and webpack starts bundling.
